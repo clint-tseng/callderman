@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Callderman</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css"/>
+  </head>
+  <body>
+    <h1>callderman</h1>
+    <section id="locate">
+      <h1>Locate your alderman</h1>
+
+      <button id="by-magic">Locate me automatically</button>
+      <p><em>or</em></p>
+      <input type="text" id="address" placeholder="Find by address"/>
+      <button id="by-address">Go</button>
+    </section>
+    <section id="error">
+      <h1>Something went wrong.</h1>
+      <p id="the-error"></p>
+      <p>Sorry about that. :(</p>
+    </section>
+    <section id="map">
+      <p>Based on this location:</p>
+      <div id="the-map"></div>
+    </section>
+    <section id="result">
+      <p>Your alderman is:</p>
+      <h1 id="alderman-name"></h1>
+
+      <dl>
+        <dt>Ward</dt>
+        <dd id="alderman-ward"></dd>
+
+        <dt>Phone</dt>
+        <dd>
+          <a id="alderman-phone"></a>
+        </dd>
+
+        <dt>Email</dt>
+        <dd>
+          <a id="alderman-email"></a>
+        </dd>
+
+        <dt>Ward Office</dt>
+        <dd id="alderman-ward-office"></dd>
+
+        <dt>City Hall Office</dt>
+        <dd id="alderman-cityhall-office"></dd>
+    </section>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.12.1/ol.min.js"></script>
+    <script type="text/javascript" src="/parse-address.min.js"></script>
+    <script type="text/javascript" src="/callderman.js"></script>
+  </body>
+</html>
+
