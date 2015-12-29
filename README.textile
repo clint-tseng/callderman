@@ -1,5 +1,12 @@
 h1. callderman
 
+finds your alderman via browser geolocation or OSM-powered address search.
+
+depends on these Socrata datasets:
+
+* https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Wards-2015-/sp34-6z76
+* https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Ward-Offices/htai-wnw4
+
 h2. running
 
 just host the files. must be https.
