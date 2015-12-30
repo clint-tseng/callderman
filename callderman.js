@@ -29,10 +29,12 @@ byMagicButton.on('click', function()
 });
 
 // by address
+var byAddressForm = $('#by-address-form');
 var byAddressButton = $('#by-address');
-byAddressButton.on('click', function()
+byAddressForm.on('submit', function(event)
 {
-  var addr = $('#address').val();
+  event.preventDefault();
+  var addr = $('#address').blur().val();
 
   // if they didn't specify chicago, tack it on.
   if (/chicago/i.test(addr) !== true)
