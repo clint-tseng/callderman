@@ -132,7 +132,7 @@ var findForLatLon = function(lat, lon)
           $('#alderman-name').text(wardDetails.alderman);
           $('#alderman-ward').text(wardDetails.ward);
           $('#alderman-phone').text(wardDetails.ward_phone).attr('href', 'tel:' + wardDetails.ward_phone);
-          $('#alderman-email').text(wardDetails.ward_phone).attr('href', 'mailto:' + wardDetails.ward_phone);
+          $('#alderman-email').text(wardDetails.email).attr('href', 'mailto:' + wardDetails.email);
           $('#alderman-ward-office').text(wardDetails.address);
           $('#alderman-cityhall-office').text(wardDetails.city_hall_address);
         }
