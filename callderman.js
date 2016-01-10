@@ -1,5 +1,41 @@
 ;(function($){$(function() {
 
+// UTIL
+var extend = function(to, from)
+{
+  var own = {}.hasOwnProperty;
+  for (var k in from) if (own.call(from, k)) to[k] = from[k];
+  return to;
+};
+
+// GEOCODING APIs
+var googleKey = null;
+var googleGeocode = function(addr, options)
+{
+  // munge the google return format.
+  var oldSuccess = options.success;
+  options.success = function(result)
+  {
+    result = [ result.results[0].geometry.location ];
+    result[0].lon = result[0].lng;
+    oldSuccess(result);
+  };
+
+  // make the request from google.
+  $.ajax(extend({
+    dataType: 'json',
+    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&key=' + googleKey,
+  }, options));
+};
+var osmGeocode = function(addr, options)
+{
+  // make the request from nominatim.
+  $.ajax(extend({
+    dataType: 'json',
+    url: 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(addr),
+  }, options));
+};
+
 // UI PIECES
 // auto geolocation
 var byMagicButton = $('#by-magic');
@@ -46,9 +82,7 @@ byAddressForm.on('submit', function(event)
   byAddressButton.addClass('working').attr('disabled', 'disabled');
 
   // make the request from nominatim.
-  $.ajax({
-    dataType: 'json',
-    url: 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(addr),
+  (googleKey === null ? osmGeocode : googleGeocode)(addr, {
     complete: function()
     {
       byAddressButton.removeClass('working').attr('disabled', null);
@@ -58,7 +92,7 @@ byAddressForm.on('submit', function(event)
     {
       // first, make sure we got something.
       if (!result || !result[0])
-        return panic('Sorry, we\u2019re not entire sure where that is. Please check the address and try again.');
+        return panic('Sorry, we\u2019re not entirely sure where that is. Please check the address and try again.');
 
       // next make sure we're the most modern attempt.
       if (ourAttempt !== attempt) return;
@@ -83,7 +117,6 @@ var resetAll = function()
   resultSection.hide();
   errorSection.hide();
   mapSection.hide();
-  theMap.empty();
 };
 
 // keep track of what the most modern attempt is so an old one returning slowly
